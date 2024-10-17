@@ -1,0 +1,10 @@
+BrandID,ModelName,DialColor,ReferenceNumber,MovementType,MovementCaliber,CaseMaterial,CaseDiameter,WaterResistance
+1,Speedmaster Moonwatch,311.30.42.30.01.005,Mechanical,Stainless Steel,42,50
+1,Seamaster Diver 300M,210.30.42.20.01.001,Automatic,Stainless Steel,42,300
+1,Constellation Co-Axial,123.20.35.20.01.001,Automatic,Gold/Steel,35,100
+2,Daytona,116500LN,Automatic,Stainless Steel,40,100
+2,Submariner Date,126610LN,Automatic,Stainless Steel,41,300
+2,Explorer II,216570,Automatic,Stainless Steel,42,100
+3,Monaco Calibre 11,CAW211P.FC6356,Automatic,Stainless Steel,39,100
+3,Carrera Calibre 16,CV201AH.BA0725,Automatic,Stainless Steel,41,100
+3,Aquaracer,WAY201A.BA0927,Automatic,Stainless Steel,43,300
