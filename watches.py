@@ -1,7 +1,6 @@
-import psycopg2
-from psycopg2 import sql
+import psycopg2 # type: ignore
 import csv
-import random
+import os
 
 # Database connection parameters
 DB_PARAMS = {
@@ -13,6 +12,7 @@ DB_PARAMS = {
 
 def connect_to_db():
     return psycopg2.connect(**DB_PARAMS)
+
 
 def create_tables():
     conn = connect_to_db()
@@ -32,12 +32,12 @@ def create_tables():
                     WatchID SERIAL PRIMARY KEY,
                     BrandID INTEGER REFERENCES Brand(BrandID),
                     ModelName VARCHAR(100) NOT NULL,
-                    ReferenceNumber VARCHAR(50),
+                    DialColor VARCHAR(50),
                     MovementType VARCHAR(50),
+                    MovementCaliber VARCHAR(50),
                     CaseMaterial VARCHAR(50),
-                    CaseDiameter FLOAT,
-                    BrandName VARCHAR(100) NOT NULL UNIQUE,
-                    WatchResistance INTEGER
+                    CaseDiameter VARCHAR(10),
+                    WaterResistance VARCHAR(20)
                 )
             """)
         conn.commit()
@@ -60,31 +60,41 @@ def add_brand(brand_name, founding_year=None, country_of_origin=None):
             """, (brand_name, founding_year, country_of_origin))
             brand_id = cur.fetchone()[0]
         conn.commit()
-        print(f"Brand '{brand_name}' added successfully with ID {brand_id}.")
+        print(f"Brand '{brand_name}' added/updated successfully with ID {brand_id}.")
         return brand_id
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred:\n{e}")
+        conn.rollback()
     finally:
         conn.close()
 
-def add_watch(brand_id, model_name, dial_color, movement_type, movement_caliber, case_material, case_diameter, water_resistance):
+def add_watch(watch_id, model_name, dial_color, movement_type, movement_caliber, case_material, case_diameter, water_resistance):
     conn = connect_to_db()
     try:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                    INSERT INTO Watch (BrandID, ModelName, DialColor, MovementType, MovementCaliber, CaseMaterial, CaseDiameter, WaterResistance)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO Watch (WatchID, ModelName, DialColor, MovementType, MovementCaliber, CaseMaterial, CaseDiameter, WaterResistance)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (WatchID) DO UPDATE
+                    SET ModelName = EXCLUDED.ModelName,
+                        DialColor = EXCLUDED.DialColor,
+                        MovementType = EXCLUDED.MovementType,
+                        MovementCaliber = EXCLUDED.MovementCaliber,
+                        CaseMaterial = EXCLUDED.CaseMaterial,
+                        CaseDiameter = EXCLUDED.CaseDiameter,
+                        WaterResistance = EXCLUDED.WaterResistance
                     RETURNING WatchID
-                """, (brand_id, model_name, dial_color, movement_type, movement_caliber, case_material, case_diameter, water_resistance)
+                """, (watch_id, model_name, dial_color, movement_type, movement_caliber, case_material, case_diameter, water_resistance)
             )
-            watch_id = cur.fetchone()[0]
+            returned_watch_id = cur.fetchone()[0]
             
         conn.commit()
         print(f"Watch '{model_name}' added successfully with ID {watch_id}")
-        return watch_id
+        return returned_watch_id
     except Exception as e:
         print(f"An error occurred: {e}")
+        conn.rollback()
     finally:
         conn.close()
 
@@ -155,32 +165,52 @@ def print_all_brands():
     print(f"Total Brands: {len(brands)}")
     
 def import_brands_from_csv(filename):
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        for row in csvreader:
-            brand_name = row[0].strip()
-            founding_year = int(row[1].strip()) if row[1].strip().isdigit() else None
-            country_of_origin = row[2].strip() if len(row) > 2 else None
-            add_brand(brand_name, founding_year, country_of_origin)
-
-
+    conn = connect_to_db()
+    try:
+        with open(filename, 'r', encoding='utf-8') as csvfile:
+            csvreader = csv.DictReader(csvfile)
+            next(csvreader)
+            for row in csvreader:
+                brand_name = row['Brand'].strip()
+                founding_year = int(row['Founded'].strip()) if row[1].strip().isdigit() else None
+                country_of_origin = row['Country Of Origin'].strip() if len(row) > 2 else None
+                add_brand(brand_name, founding_year, country_of_origin)
+            
+        print(f"Brands imported successfully from {filename}")
+    except Exception as e:
+        print(f"An error occurred while importing brands:\n{e}")
+    finally:
+        conn.close()
 
 def import_watches_from_csv(filename):
     with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
+        csvreader = csv.DictReader(csvfile)
+        next(csvreader)
         for row in csvreader:
-            brand_id = int(row[0].strip())
-            model_name = row[1].strip()
-            reference_number = row[2].strip()
-            movement_type = row[3].strip()
-            case_material = row[4].strip()
-            case_diameter = float(row[5].strip())
-            water_resistance = int(row[6].strip())
-            add_watch(brand_id, model_name, reference_number, movement_type, case_material, case_diameter, water_resistance)
+            try:
+                watch_id = int(row['WatchID'])
+                model_name = row['ModelName']
+                dial_color = row['DialColor']
+                movement_type = row['MovementType']
+                movement_caliber = row['MovementCaliber']
+                case_material = row['CaseMaterial']
+                case_diameter_str = row['CaseDiameter']
+                case_diameter = float(case_diameter_str.replace('mm', '')) if case_diameter_str.lower() != 'n/a' else None   
+                water_resistance_str = row['WaterResistance']
+                water_resistance = int(water_resistance_str.replace('m', '')) if water_resistance_str.lower() != 'n/a' else None
+                
+                add_watch(watch_id, model_name, dial_color, movement_type, movement_caliber, case_material, case_diameter, water_resistance)
+                
+            except Exception as e:
+                print(f"An error occurred while importing watch {row.get('WatchID', 'Unknown')}: \n{e}")
+                continue
+        print("Watch import completed")
 
 
 if __name__ == "__main__":
     create_tables()
     # get_all_brands()
-    import_watches_from_csv('watches.csv')
-    print("\nAll watches imported into the database.")
+    # import_brands_from_csv('data/watch_brands.csv')
+    import_watches_from_csv('data/watch_models.csv')
+    
+    # print("\nAll watches imported into the database.")
