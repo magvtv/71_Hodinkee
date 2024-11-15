@@ -1,13 +1,16 @@
 import psycopg2 # type: ignore
 import csv
 import os
+from dotenv import load_dotenv # type: ignore
+
+load_dotenv()
 
 # Database connection parameters
 DB_PARAMS = {
-    "dbname": "hodinkee",
-    "user": "postgres",
-    "password": "M4GVTV9H",
-    "host": "localhost"
+    "dbname": os.getenv('DB_NAME'),
+    "user": os.getenv('DB_USER'),
+    "password": os.getenv('DB_PASSWORD'),
+    "host": os.getenv('DB_HOST')
 }
 
 def connect_to_db():
