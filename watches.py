@@ -18,19 +18,18 @@ def create_tables():
     conn = connect_to_db()
     try:
         with conn.cursor() as cur:
-            cur.execute("""
-                CREATE TABLE IF NOT EXISTS Brand (
-                    BrandID SERIAL PRIMARY KEY,
-                    BrandName VARCHAR(100) NOT NULL UNIQUE,
-                    FoundingYear INTEGER,
-                    CountryOfOrigin VARCHAR(50)
-                )
-            """)
+            # cur.execute("""
+            #     CREATE TABLE IF NOT EXISTS Brand (
+            #         BrandID SERIAL PRIMARY KEY,
+            #         BrandName VARCHAR(100) NOT NULL UNIQUE,
+            #         FoundingYear INTEGER,
+            #         CountryOfOrigin VARCHAR(50)
+            #     )
+            # """)
             
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS Watch (
                     WatchID SERIAL PRIMARY KEY,
-                    BrandID INTEGER REFERENCES Brand(BrandID),
                     ModelName VARCHAR(100) NOT NULL,
                     DialColor VARCHAR(50),
                     MovementType VARCHAR(50),
@@ -172,8 +171,9 @@ def import_brands_from_csv(filename):
             next(csvreader)
             for row in csvreader:
                 brand_name = row['Brand'].strip()
-                founding_year = int(row['Founded'].strip()) if row[1].strip().isdigit() else None
+                founding_year = int(row['Founded'].strip()) if row['Founded'].strip().isdigit() else None
                 country_of_origin = row['Country Of Origin'].strip() if len(row) > 2 else None
+                
                 add_brand(brand_name, founding_year, country_of_origin)
             
         print(f"Brands imported successfully from {filename}")
@@ -209,8 +209,8 @@ def import_watches_from_csv(filename):
 
 if __name__ == "__main__":
     create_tables()
-    # get_all_brands()
     # import_brands_from_csv('data/watch_brands.csv')
+    # get_all_brands()
     import_watches_from_csv('data/watch_models.csv')
     
     # print("\nAll watches imported into the database.")
