@@ -1,70 +1,70 @@
-Brand,Founded,Country Of Origin
-Accutron, 1875, USA
-A.Lange & Söhne, 1845, Germany
-Alpina,  1883, Switzerland
-Armin Strom, 1967, Switzerland
-Audemars Piguet, 1881, Switzerland
-Baume & Mercier, 1830, Switzerland
-Bell & Ross, 1992, France
-Blancpain, 1735, Switzerland
-Bovet, 1822, Switzerland
-Breguet, 1775, Switzerland
-Breitling, 1884, Switzerland
-Bremont, 2002, UK
-Bulgari, 1884, Italy
-Bulova, 1875, USA
-Carl F. Bucherer, 1888, Switzerland
-Cartier, 1847, France
-Certina, 1888, Switzerland
-Chanel, 1987, UK
-Chopard, 1860, Switzerland
-Chronoswiss, 1983, Switzerland
-Citizen, 1918, USA
-Fortis, 1912, Switzerland
-F.P.Journe, 1999, Switzerland
-Frederique Constant, 1988, Switzerland
-Girard-Perregaux, 1791 - 1852, Switzerland
-Glashütte Original, 1845, Germany
-Grand Seiko, 1881, Japan
-G-Shock, 1983, Japan
-Hamilton, 1892, Switzerland
-Harry Winston, 1932, New York
-Hermès, 1837, France
-H.Moser, 1828, Switzerland
-Hublot, 1980, Switzerland
-HYT, 2012, Switzerland
-IWC, 1868, Switzerland
-Jaeger-LeCoultre, 1833, Switzerland
-Jaquet Droz, 1738, Switzerland
-Laurent Ferrier, 2009, Switzerland
-Longines, 1832, Switzerland
-MB&F, 2005, Switzerland
-Mido, 1918, Switzerland
-Montblanc, 1906, Germany
-NOMOS Glashütte, 1990, Germany
-Norqain, 2018, Switzerland
-Omega, 1848, Switzerland
-Orient Star, 1951, Japan
-Oris, 1904, Switzerland
-Panerai, 1860, Switzerland 
-Parmigiani Fleurier, 1996, Switzerland
-Patek Philippe, 1839, Switzerland
-Piaget, 1874, Switzerland
-Porsche Design, 1972, Germany
-Rado, 1917, Switzerland
-Ressence, 2010, Belgium
-Roger Dubuis, 1995, Switzerland
-Rolex, 1905, Switzerland
-Seiko, 1881, Japan
-Swatch, 1983, Switzerland
-TAG Heuer, 1860, Switzerland
-Tiffany & Co., 1837, USA
-Tissot, 1853, Switzerland
-Trilobe, 2018, France
-Tudor, 1926, Switzerland
-Ulysse Nardin, 1846, Switzerland
-Unimatic, 2015, Italy,
-Urwerk, 1997, Switzerland
-Vacheron Constantin, 1755, Switzerland
-Van Cleef & Arpels, 1906, France 
-Zenith, 1865, Switzerland
+BrandID,Brand,Founded,Country Of Origin
+001, Accutron, 1875, USA
+002, A.Lange & Söhne, 1845, Germany
+003, Alpina,  1883, Switzerland
+004, Armin Strom, 1967, Switzerland
+005, Audemars Piguet, 1881, Switzerland
+006, Baume & Mercier, 1830, Switzerland
+007, Bell & Ross, 1992, France
+008, Blancpain, 1735, Switzerland
+009, Bovet, 1822, Switzerland
+010, Breguet, 1775, Switzerland
+011, Breitling, 1884, Switzerland
+012, Bremont, 2002, UK
+013, Bulgari, 1884, Italy
+014, Bulova, 1875, USA
+015, Carl F. Bucherer, 1888, Switzerland
+016, Cartier, 1847, France
+017, Certina, 1888, Switzerland
+018, Chanel, 1987, UK
+019, Chopard, 1860, Switzerland
+020, Chronoswiss, 1983, Switzerland
+021, Citizen, 1918, USA
+022, Fortis, 1912, Switzerland
+023, F.P.Journe, 1999, Switzerland
+024, Frederique Constant, 1988, Switzerland
+025, Girard-Perregaux, 1791 - 1852, Switzerland
+026, Glashütte Original, 1845, Germany
+027, Grand Seiko, 1881, Japan
+028, G-Shock, 1983, Japan
+029, Hamilton, 1892, Switzerland
+030, Harry Winston, 1932, New York
+031, Hermès, 1837, France
+032, H.Moser, 1828, Switzerland
+033, Hublot, 1980, Switzerland
+034, HYT, 2012, Switzerland
+035, IWC, 1868, Switzerland
+036, Jaeger-LeCoultre, 1833, Switzerland
+037, Jaquet Droz, 1738, Switzerland
+038, Laurent Ferrier, 2009, Switzerland
+039, Longines, 1832, Switzerland
+040, MB&F, 2005, Switzerland
+041, Mido, 1918, Switzerland
+042, Montblanc, 1906, Germany
+043, NOMOS Glashütte, 1990, Germany
+044, Norqain, 2018, Switzerland
+045, Omega, 1848, Switzerland
+046, Orient Star, 1951, Japan
+047, Oris, 1904, Switzerland
+048, Panerai, 1860, Switzerland 
+049, Parmigiani Fleurier, 1996, Switzerland
+050, Patek Philippe, 1839, Switzerland
+051, Piaget, 1874, Switzerland
+052,Porsche Design, 1972, Germany
+053,Rado, 1917, Switzerland
+054, Ressence, 2010, Belgium
+055, Roger Dubuis, 1995, Switzerland
+056, Rolex, 1905, Switzerland
+057, Seiko, 1881, Japan
+058, Swatch, 1983, Switzerland
+059, TAG Heuer, 1860, Switzerland
+060, Tiffany & Co., 1837, USA
+061, Tissot, 1853, Switzerland
+062, Trilobe, 2018, France
+063, Tudor, 1926, Switzerland
+064, Ulysse Nardin, 1846, Switzerland
+065, Unimatic, 2015, Italy,
+066, Urwerk, 1997, Switzerland
+067, Vacheron Constantin, 1755, Switzerland
+068, Van Cleef & Arpels, 1906, France 
+069, Zenith, 1865, Switzerland
